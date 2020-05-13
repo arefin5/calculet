@@ -1,0 +1,67 @@
+{% extends "base_nonav.html" %}
+{% block content %}
+<!-- Nicked this from: https://codepen.io/stevehalford/pen/YeYEOR -->
+<section class="hero is-primary is-fullheight">
+    <div class="hero-body">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-5-tablet is-4-desktop is-3-widescreen" >
+                    <form method="post" action="/register" class="box">
+                        {% csrf-field %}
+                        REGISTER
+                        <div class="field">
+                            <label for="email" class="label">Email</label>
+                            <div class="control">
+                                <!--
+                                <div class="control has-icons-left">
+                                                  <input id="email" name="email" type="email" placeholder="e.g. jeremysausage@gmail.com" class="input" required>
+                                  -->
+                                <input id="email" name="email" type="text" placeholder="Enter User ID" class="input" required>
+                                <!--
+                                <span class="icon is-small is-left">
+                                                  <i class="fa fa-envelope"></i>
+                                </span>
+                                -->
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="password" class="label">Password</label>
+                            <!--
+                                          <div class="control has-icons-left">
+                            -->
+                            <div class="control">
+                                <input id="password" name="password" type="password" placeholder="Enter Password" class="input" required>
+                                <!--
+                                <span class="icon is-small is-left">
+                                                  <i class="fa fa-lock"></i>
+                                                </span>
+                                -->
+                            </div>
+                        </div>
+<!--                        <div class="field">-->
+<!--                            <label for="remember" class="checkbox">-->
+<!--                                <input id="remember" type="checkbox">-->
+<!--                                Remember me-->
+<!--                            </label>-->
+<!--                        </div>-->
+                        <!--                        <div class="container field is-horizontal">-->
+                        <div class="field is-horizontal">
+                            <div class="container">
+                                <a href="/login" class="button is-text is-pulled-left">
+                                    Back
+                                </a>
+                                <button class="button is-success is-pulled-right">
+                                    Register
+                                </button>
+<!--                                <a href="/register" class="button is-text is-pulled-right">-->
+<!--                                    Register-->
+<!--                                </a>-->
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

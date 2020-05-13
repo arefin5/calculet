@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <!--
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    -->
+
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Welcome to luminapp</title>
+
+    <!-- styles -->
+    <!-- {% style "/assets/bulma/css/bulma.min.css" %}-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
+
+    {% style "/assets/material-icons/css/material-icons.min.css" %}
+
+    {% style "/css/screen.css" %}
+</head>
+
+<body class="has-background-primary has-no-scrollbar">
+<!-- navbar
+<nav class="navbar is-info">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="/" style="font-weight:bold;">luminapp</a>
+            <span class="navbar-burger burger" data-target="nav-menu">
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                  </span>
+        </div>
+        <div id="nav-menu" class="navbar-menu">
+            <div class="navbar-start">
+                <a href="/" class="navbar-item{% ifequal page "home.html" %} is-active{%endifequal%}">Home</a>
+                <a href="/about" class="navbar-item{% ifequal page "about.html" %} is-active{%endifequal%}">About</a>
+            </div>
+
+            <div class="navbar-end">
+                <a href="/login" class="navbar-item">Logout</a>
+            </div>
+
+        </div>
+    </div>
+</nav>
+-->
+
+<section class="section is-paddingless">
+
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+</section>
+
+<!-- scripts -->
+<script type="text/javascript">
+          (function() {
+            var burger = document.querySelector('.burger');
+            var nav = document.querySelector('#'+burger.dataset.target);
+            burger.addEventListener('click', function(){
+              burger.classList.toggle('is-active');
+              nav.classList.toggle('is-active');
+            });
+          })();
+        </script>
+
+
+{% block page-scripts %}
+{% endblock %}
+</body>
+
+</html>
