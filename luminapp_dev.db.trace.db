@@ -1,6 +1,0 @@
-2020-05-12 20:42:46 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LUMINAPP" not found; SQL statement:
-SELECT * from luminapp [42102-200]
-2020-05-12 21:50:09 jdbc[33]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCHEMA_MIGRATIONS" not found; SQL statement:
-SELECT 1 FROM schema_migrations [42102-200]
