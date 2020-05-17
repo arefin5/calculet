@@ -11,7 +11,6 @@
     [luminapp.config :refer [env]]
     [ring-ttl-session.core :refer [ttl-memory-store]]
     [ring.middleware.defaults :refer [secure-site-defaults site-defaults wrap-defaults]]
-
     [clojure.tools.logging :as log]
 ))
 

@@ -17,9 +17,9 @@ INSERT INTO users
 VALUES (:userid, :name, :email_address, :password)
 
 
--- :name authenticate :? :n
+-- :name authenticate :? :1
 -- :doc Authenticate against the user table
-SELECT *
+SELECT 'Y' as record_found
 FROM   users
 WHERE  userid = :userid
 AND    password = :password

@@ -15,4 +15,8 @@ profiles.clj
 /node_modules
 /log
 
+
+# Ignore Intellij
 .idea/
+# Ignore .db files
+*.db

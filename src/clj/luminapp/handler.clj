@@ -3,6 +3,7 @@
     [luminapp.middleware :as middleware]
     [luminapp.layout :refer [error-page]]
     [luminapp.routes.home :refer [home-routes]]
+    [luminapp.routes.login :refer [login-routes]]
     [reitit.ring :as ring]
     [ring.middleware.content-type :refer [wrap-content-type]]
     [ring.middleware.webjars :refer [wrap-webjars]]
@@ -17,7 +18,9 @@
   :start
   (ring/ring-handler
     (ring/router
-      [(home-routes)])
+      [(login-routes)
+       (home-routes)
+       ])
     (ring/routes
       (ring/create-resource-handler
         {:path "/"})

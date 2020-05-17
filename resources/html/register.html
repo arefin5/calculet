@@ -10,13 +10,43 @@
                         {% csrf-field %}
                         REGISTER
                         <div class="field">
-                            <label for="email" class="label">Email</label>
+                            <label for="email" class="label">UserId</label>
                             <div class="control">
                                 <!--
                                 <div class="control has-icons-left">
                                                   <input id="email" name="email" type="email" placeholder="e.g. jeremysausage@gmail.com" class="input" required>
                                   -->
-                                <input id="email" name="email" type="text" placeholder="Enter User ID" class="input" required>
+                                <input id="userid" name="userid" type="text" placeholder="Enter User ID" class="input" required>
+                                <!--
+                                <span class="icon is-small is-left">
+                                                  <i class="fa fa-envelope"></i>
+                                </span>
+                                -->
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="name" class="label">Name</label>
+                            <div class="control">
+                                <!--
+                                <div class="control has-icons-left">
+                                                  <input id="email" name="email" type="email" placeholder="e.g. jeremysausage@gmail.com" class="input" required>
+                                  -->
+                                <input id="name" name="name" type="text" placeholder="Enter Name" class="input" required>
+                                <!--
+                                <span class="icon is-small is-left">
+                                                  <i class="fa fa-envelope"></i>
+                                </span>
+                                -->
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="email_address" class="label">Email</label>
+                            <div class="control">
+                                <!--
+                                <div class="control has-icons-left">
+                                                  <input id="email" name="email" type="email" placeholder="e.g. jeremysausage@gmail.com" class="input" required>
+                                  -->
+                                <input id="email_address" name="email_address" type="text" placeholder="Enter User ID" class="input" required>
                                 <!--
                                 <span class="icon is-small is-left">
                                                   <i class="fa fa-envelope"></i>

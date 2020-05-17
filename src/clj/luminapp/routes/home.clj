@@ -24,10 +24,6 @@
   (first (st/validate params message-schema)))
 
 
-;;(defn home-page [request]
-;;  (layout/render request "home.html" {:docs (-> "docs/docs.md" io/resource slurp)}))
-;;    (layout/render request "home.html" {:info {:name "peter"}}))
-;; (layout/render request "home.html" {:messages (db/get-messages)}))
 (defn home-page [{:keys [flash] :as request}]
   (layout/render
     request
@@ -61,49 +57,20 @@
   (->
     (layout/render request "register.html")))
 
-;
-;
-;(defn logout [request]
-;  (response/found "/login"))
-;
-;
 
 (defn authenticate [{:keys [params]}]
   (if (= (:password params) "piper")
-    (assoc-in
+    (merge
       (response/found "/")
-      [:session :authenticated?] true)
+      {:session {:authenticated? true}})
     (response/found "/login")))
 
 
 (defn register [{:keys [params]}]
-  ;(if (= (:password params) "piper")
-  ;(assoc-in
-  ;  (response/found "/")
-  ;  [:session :authenticated?] true)
   (response/found "/login"))
-;)
 
-
-;; added by me
-;(defn login-page
-;  [login-details]
-;  {:status  (:status login-details)
-;   :headers {"Content-Type" "text/html; charset=utf-8"}
-;   :body    (parser/render-file "login.html" login-details)})
 
 (defn home-routes []
-  [
-   [""
-    {:middleware [;middleware/wrap-csrf
-                  ;middleware/wrap-formats
-                  ;middleware/wrap-nocache
-                  ]}
-    ["/login" {:get  login-page
-               :post authenticate}]                         ;; not protected by the wrap-login middleware
-    ["/register" {:get  register-page
-                  :post register}]                          ;; not protected by the wrap-login middleware
-    ]
    [""
     {:middleware [middleware/wrap-login
                   middleware/wrap-csrf
@@ -113,11 +80,7 @@
     ["/" {:get home-page}]
     ["/message" {:post save-message!}]
     ["/about" {:get about-page}]
-    ;["/authenticate" {:post authenticate}]
-    ;["/login" {:get login-page
-    ;           :post login-page}]
-    ["/logout" {:get login-page}]
     ]
-   ]
+   ;]
   )
 
