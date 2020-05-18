@@ -16,7 +16,9 @@ profiles.clj
 /log
 
 
-# Ignore Intellij
+# Intellij
 .idea/
-# Ignore .db files
+luminapp.iml
+
+# .db files
 *.db
