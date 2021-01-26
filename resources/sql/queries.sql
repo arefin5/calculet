@@ -17,6 +17,11 @@ INSERT INTO users
 VALUES (:userid, :name, :email_address, :password)
 
 
+-- :name get-users :? :*
+-- :doc returns all user records
+SELECT * FROM users
+
+
 -- :name authenticate :? :1
 -- :doc Authenticate against the user table
 SELECT 'Y' as record_found
