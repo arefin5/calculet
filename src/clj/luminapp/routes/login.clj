@@ -9,29 +9,29 @@
     [struct.core :as st]))
 
 
-(defn login-page [request]
+(defn- login-page [request]
   (->
     (layout/render request "login.html")
     (assoc :session nil)))
 
 
-(defn register-page [request]
+(defn- authenticate [{:keys [params]}]
+  (let [user (db/get-user params)]
+    (if (= (:password params) (:password user))
+      (merge
+        (response/found "/")
+        {:session {:authenticated? true
+                   :userid (:userid params)
+                   :name (:name user)}})
+      (response/found "/login"))))
+
+
+(defn- register-page [request]
   (->
     (layout/render request "register.html")))
 
 
-(defn authenticate [{:keys [params]}]
-  (if (= (:password params) "piper")
-    ;(assoc-in
-    ;  (response/found "/")
-    ;  [:session :authenticated?] true)
-    (merge
-      (response/found "/")
-      {:session {:authenticated? true}})
-    (response/found "/login")))
-
-
-(defn register [{:keys [params]}]
+(defn- register [{:keys [params]}]
   (db/create-user! params)
   (response/found "/login"))
 
@@ -42,7 +42,6 @@
               :post authenticate}]                         ;; not protected by the wrap-login middleware
    ["/register" {:get  register-page
                  :post register}]                          ;; not protected by the wrap-login middleware
-   ["/logout" {:get (fn [x] (response/found "/login"))}]
-   ]
-  )
+   ["/logout" {:get (fn [_] (response/found "/login"))}]
+   ])
 

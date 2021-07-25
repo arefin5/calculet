@@ -12,3 +12,10 @@
      (source/from-system-props)
      (source/from-env)]))
 
+; Here's a way to check for intersecting keys:
+; (filter #(< 1 (second %))
+;   (frequencies
+;     (concat
+;       (keys (source/from-system-props))
+;       (keys (source/from-env)))))
+

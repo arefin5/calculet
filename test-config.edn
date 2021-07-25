@@ -3,4 +3,4 @@
 ;; This file is listed in .gitignore and will be excluded from version control by Git.
 
 {:port 3000
- :database-url "jdbc:h2:./luminapp_test.db"}
+ :database-url ""}

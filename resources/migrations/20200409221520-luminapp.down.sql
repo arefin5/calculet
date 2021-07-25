@@ -1,4 +1,8 @@
-DROP TABLE users;
 
-DROP TABLE messages;
+DROP TABLE IF EXISTS messages;
 
+--;;
+
+DROP TABLE IF EXISTS users;
+
+--;;

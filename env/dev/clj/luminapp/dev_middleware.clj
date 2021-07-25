@@ -10,27 +10,18 @@
   (with-out-str (clojure.pprint/pprint d)))
 
 
-;(defn add-to-session [request response]
-;  (if (get-in request [:session :userid])
-;      response
-;      (assoc-in response [:session :userid] "hayzee")))
-;
-;
-;(defn- wrap-logging [handler]
-;  (fn [request]
-;    (log/info "\n\n\nREQUEST DATA " (pretty-print request) "\n\n\n")
-;    (let [response (handler request)
-;          mod-response (add-to-session request response)]
-;      (log/info "\n\n\nRESPONSE DATA " mod-response "\n\n\n")
-;      mod-response)))
-;(mount.core/defstate reqres-logger :start (fn [name] (str "Hi " name ", i am started")))
+(def ^:dynamic *log-enabled* true)
+
+(defn log-request [reqres label]
+  (when *log-enabled*
+    (log/info "\n\n\n" label ":" (pretty-print reqres) "\n\n\n")))
 
 
 (defn- wrap-logging [handler]
   (fn [request]
-    (log/info "\n\n\nREQUEST DATA " (pretty-print request) "\n\n\n")
+    (log-request request "Request")
     (let [response (handler request)]
-      (log/info "\n\n\nRESPONSE DATA " response "\n\n\n")
+      (log-request response "Response")
       response)))
 
 

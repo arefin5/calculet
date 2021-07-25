@@ -38,7 +38,8 @@
   (mount/stop #'luminapp.db.core/*db*)
   (mount/start #'luminapp.db.core/*db*)
   (binding [*ns* 'luminapp.db.core]
-    (conman/bind-connection luminapp.db.core/*db* "sql/queries.sql")))
+    (conman/bind-connection luminapp.db.core/*db* "sql/users.sql")
+    (conman/bind-connection luminapp.db.core/*db* "sql/messages.sql")))
 
 (defn reset-db
   "Resets database."
@@ -60,4 +61,6 @@
   [name]
   (migrations/create name (select-keys env [:database-url])))
 
+(defn set-request-logging [tf]
+  (alter-var-root #'luminapp.dev-middleware/*log-enabled* (constantly tf)))
 

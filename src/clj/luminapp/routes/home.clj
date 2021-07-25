@@ -9,7 +9,7 @@
     [struct.core :as st]))
 
 
-(def message-schema
+(def ^:private message-schema
   [[:name
     st/required
     st/string]
@@ -20,54 +20,56 @@
      :validate (fn [msg] (>= (count msg) 10))}]])
 
 
-(defn validate-message [params]
-  (first (st/validate params message-schema)))
-
-
-(defn home-page [{:keys [flash] :as request}]
+(defn- home-page [{:keys [flash] :as request}]
   (layout/render
     request
     "home.html"
-    (merge {:messages (db/get-messages)}
-           (select-keys flash [:name :message :errors]))))
+    (merge
+      {:messages (db/get-messages)}
+      (:session request)
+      (select-keys flash [:name :message :errors]))))
 
 
-(defn save-message! [{:keys [params]}]
+(defn- validate-message [params]
+  (first (st/validate params message-schema)))
+
+
+(defn- save-message! [{:keys [params session]}]
   ;  (db/save-message! params)
   ;  (response/found "/"))
   (if-let [errors (validate-message params)]
     (-> (response/found "/")
         (assoc :flash (assoc params :errors errors)))
     (do
-      (db/save-message! params)
+      (db/save-message! (merge session params))
       (response/found "/"))))
 
 
-(defn about-page [request]
+(defn- about-page [request]
   (layout/render request "about.html"))
 
 
-(defn login-page [request]
-  (->
-    (layout/render request "login.html")
-    (assoc :session nil)))
+;(defn login-page [request]
+;  (->
+;    (layout/render request "login.html")
+;    (assoc :session nil)))
 
 
-(defn register-page [request]
-  (->
-    (layout/render request "register.html")))
+;(defn register-page [request]
+;  (->
+;    (layout/render request "register.html")))
 
 
-(defn authenticate [{:keys [params]}]
-  (if (= (:password params) "piper")
-    (merge
-      (response/found "/")
-      {:session {:authenticated? true}})
-    (response/found "/login")))
+;(defn authenticate [{:keys [params]}]
+;  (if (= (:password params) "piper")
+;    (merge
+;      (response/found "/")
+;      {:session {:authenticated? true}})
+;    (response/found "/login")))
 
 
-(defn register [{:keys [params]}]
-  (response/found "/login"))
+;(defn register [{:keys [params]}]
+;  (response/found "/login"))
 
 
 (defn home-routes []
@@ -81,6 +83,5 @@
     ["/message" {:post save-message!}]
     ["/about" {:get about-page}]
     ]
-   ;]
   )
 

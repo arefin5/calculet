@@ -12,7 +12,9 @@
           :stop (conman/disconnect! *db*))
 
 
-(conman/bind-connection *db* "sql/queries.sql")
+; These could be moved to their own namespaces
+(conman/bind-connection *db* "sql/users.sql")
+(conman/bind-connection *db* "sql/messages.sql")
 
 
 (extend-protocol jdbc/IResultSetReadColumn

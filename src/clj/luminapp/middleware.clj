@@ -15,6 +15,7 @@
 ))
 
 
+; added
 (defn wrap-login [handler]
   (fn [request]
     (log/info "wrap-login")
@@ -25,15 +26,7 @@
                    :message (str "session " (:session request))}))))
 
 
-    ;(-> request
-    ;    handler
-    ;    ;(update-in [:headers] assoc
-    ;    ;           "Cache-Control" "no-cache, no-store, must-revalidate"
-    ;    ;           "Pragma" "no-cache"
-    ;    ;           "expires" "0")
-    ;    )))
-
-;; added by me:
+; added
 (defn wrap-nocache [handler]
   (fn [request]
     (log/info "wrap-nocache")
@@ -77,11 +70,10 @@
 
 (defn wrap-base [handler]
   (-> ((:middleware defaults) handler)
-      (wrap-defaults
-        (-> site-defaults
-;        (-> secure-site-defaults
-            (assoc-in [:security :anti-forgery] false)
-            (assoc-in [:session :store] (ttl-memory-store (* 60 30)))
-            ))
-      wrap-internal-error))
+    (wrap-defaults
+      (-> site-defaults
+        ;        (-> secure-site-defaults
+        (assoc-in [:security :anti-forgery] false)
+        (assoc-in [:session :store] (ttl-memory-store (* 60 30)))))
+    wrap-internal-error))
 
