@@ -30,7 +30,7 @@
                      type="text"
                      name="name"
                      value="{{name}}"
-                     readonly />
+                     disabled />
             </div>
             <div class="field">
               <label class="label" for="message">
@@ -60,8 +60,7 @@
               <time>
                 {{item.timestamp|date:"yyyy-MM-dd HH:mm"}}
               </time>
-              <p>{{item.message}}</p>
-              <p> - {{item.name}}</p>
+              <p>{{item.name}}: "{{item.message}}"</p>
             </li>
             {% endfor %}
           </ul>

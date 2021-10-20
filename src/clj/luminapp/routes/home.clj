@@ -8,11 +8,12 @@
     [ring.util.http-response :as response]
     [struct.core :as st]))
 
-
 (def ^:private message-schema
-  [[:name
-    st/required
-    st/string]
+  [
+  ;Not required if html element is "disabled" on home.html.
+  ;[:name
+  ;  st/required
+  ;  st/string]
    [:message
     st/required
     st/string
@@ -47,29 +48,6 @@
 
 (defn- about-page [request]
   (layout/render request "about.html"))
-
-
-;(defn login-page [request]
-;  (->
-;    (layout/render request "login.html")
-;    (assoc :session nil)))
-
-
-;(defn register-page [request]
-;  (->
-;    (layout/render request "register.html")))
-
-
-;(defn authenticate [{:keys [params]}]
-;  (if (= (:password params) "piper")
-;    (merge
-;      (response/found "/")
-;      {:session {:authenticated? true}})
-;    (response/found "/login")))
-
-
-;(defn register [{:keys [params]}]
-;  (response/found "/login"))
 
 
 (defn home-routes []

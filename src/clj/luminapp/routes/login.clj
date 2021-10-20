@@ -39,9 +39,9 @@
 (defn login-routes []
   [""
    ["/login" {:get  login-page
-              :post authenticate}]                         ;; not protected by the wrap-login middleware
+              :post authenticate}]
    ["/register" {:get  register-page
-                 :post register}]                          ;; not protected by the wrap-login middleware
+                 :post register}]
    ["/logout" {:get (fn [_] (response/found "/login"))}]
    ])
 

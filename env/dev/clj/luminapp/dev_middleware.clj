@@ -10,7 +10,7 @@
   (with-out-str (clojure.pprint/pprint d)))
 
 
-(def ^:dynamic *log-enabled* true)
+(def ^:dynamic *log-enabled* false)
 
 (defn log-request [reqres label]
   (when *log-enabled*

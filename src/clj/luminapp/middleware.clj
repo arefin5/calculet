@@ -12,7 +12,8 @@
     [ring-ttl-session.core :refer [ttl-memory-store]]
     [ring.middleware.defaults :refer [secure-site-defaults site-defaults wrap-defaults]]
     [clojure.tools.logging :as log]
-))
+    [ring.util.response :refer [redirect]]
+    ))
 
 
 ; added
@@ -21,7 +22,8 @@
     (log/info "wrap-login")
     (if (-> request :session :authenticated?)
       (handler request)
-      (error-page {:status 401
+      (redirect "/login")
+      #_      (error-page {:status 401
                    :title "Not logged in"
                    :message (str "session " (:session request))}))))
 
