@@ -2,46 +2,50 @@
   (:require
     [luminapp.layout :as layout]
     [luminapp.db.core :as db]
-    ;    [clojure.java.io :as io]
     [luminapp.middleware :as middleware]
     [ring.util.response :refer [redirect]]
     [ring.util.http-response :as response]
-    [struct.core :as st]))
-
+    [struct.core :as st]
+    [ring.middleware.json :refer [wrap-json-body wrap-json-response]]))
 
 (defn- login-page [request]
-  (->
-    (layout/render request "login.html")
-    (assoc :session nil)))
-
+  {:status 200
+   :headers {"Content-Type" "application/json"}
+   :body {:message "Login API"}})
 
 (defn- authenticate [{:keys [params]}]
   (let [user (db/get-user params)]
     (if (= (:password params) (:password user))
-      (merge
-        (response/found "/")
-        {:session {:authenticated? true
-                   :userid (:userid params)
-                   :name (:name user)}})
-      (response/found "/login"))))
-
+      {:status 200
+       :headers {"Content-Type" "application/json"}
+       :body {:message "Login successful"
+              :userid (:userid params)
+              :name (:name user)}}
+      {:status 401
+       :headers {"Content-Type" "application/json"}
+       :body {:message "Invalid username or password"}})))
 
 (defn- register-page [request]
-  (->
-    (layout/render request "register.html")))
-
+  {:status 200
+   :headers {"Content-Type" "application/json"}
+   :body {:message "Register API"}})
 
 (defn- register [{:keys [params]}]
   (db/create-user! params)
-  (response/found "/login"))
-
+  {:status 200
+   :headers {"Content-Type" "application/json"}
+   :body {:message "Registration successful"}})
 
 (defn login-routes []
   [""
-   ["/login" {:get  login-page
-              :post authenticate}]
-   ["/register" {:get  register-page
+   ["/login" {:post authenticate}]
+   ["/register" {:get register-page
                  :post register}]
-   ["/logout" {:get (fn [_] (response/found "/login"))}]
-   ])
+   ["/logout" {:get (fn [_] {:status 200
+                             :headers {"Content-Type" "application/json"}
+                             :body {:message "Logged out successfully"}})}]])
 
+(def app
+  (-> (login-routes)
+      (wrap-json-body)
+      (wrap-json-response)))
