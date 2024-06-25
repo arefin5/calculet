@@ -1,2 +1,4 @@
 {:prod true
- :port 3000}
+ :port 3000
+ :db "jdbc:mysql://203.161.60.224:3306/calculator?user=myuser&password=%40%23%21SQEdedd"}
+
